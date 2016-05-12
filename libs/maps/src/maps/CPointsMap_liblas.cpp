@@ -113,8 +113,13 @@ bool CPointsMap::loadLASFile(const std::string &filename, LAS_HeaderInfo &out_he
 
 	out_headerInfo.FileSignature      = header.GetFileSignature();
 	out_headerInfo.SystemIdentifier   = header.GetSystemId();
-	out_headerInfo.SoftwareIdentifier = header.
+	out_headerInfo.SoftwareIdentifier = header.GetSoftwareId();
+
+#if LIBLAS_VERSION_NUM < 1800
+	out_headerInfo.project_guid       = header.GetProjectId().to_string();
+#else
 	out_headerInfo.project_guid       = boost::lexical_cast<std::string>(header.GetProjectId());
+#endif
 	out_headerInfo.spatial_reference_proj4 = header.GetSRS().GetProj4();
 	out_headerInfo.creation_year = header.GetCreationYear();
 	out_headerInfo.creation_DOY  = header.GetCreationDOY();
