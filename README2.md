@@ -1,4 +1,4 @@
-#Build Instractions
+#Build Instructions
 - Check out the latest source from itulabs git repo
 
 ```
